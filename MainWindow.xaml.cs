@@ -16,6 +16,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Microsoft.Kinect;
+    using Microsoft.Kinect.VisualGestureBuilder;
 
     /// <summary>
     /// Interaction logic for MainWindow
@@ -259,6 +260,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             }
         }
 
+        /// instantiate some gesture builder types
+        VisualGestureBuilderFrameSource vgbFrameSource;
+        VisualGestureBuilderFrameReader vgbFrameReader;
+        Gesture _wave;
+        Gesture _push_up;
+        Gesture _squats;
+
         /// <summary>
         /// Execute start up tasks
         /// </summary>
@@ -269,6 +277,57 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             if (this.bodyFrameReader != null)
             {
                 this.bodyFrameReader.FrameArrived += this.Reader_FrameArrived;
+            }
+
+            this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
+            if (this.vgbFrameSource != null)
+            {
+                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
+                VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
+                if (database != null)
+                {
+                    foreach (Gesture gesture in database.AvailableGestures)
+                    {
+                        vgbFrameSource.AddGesture(gesture);
+                        if (gesture.Name == "wave")
+                        {
+                            _wave = gesture;
+                        }
+                        else if (gesture.Name == "push_up")
+                        {
+                            _push_up = gesture;
+                        }
+                        else if (gesture.Name == "squats")
+                        {
+                            _squats = gesture;
+                        }
+                    }
+                }
+                this.vgbFrameReader = this.vgbFrameSource.OpenReader();
+                if (this.vgbFrameReader != null)
+                {
+                    this.vgbFrameReader.IsPaused = true;
+                    this.vgbFrameReader.FrameArrived += vgbFrameReader_FrameArrived;
+                }
+
+            }
+        }
+
+        private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
+        {
+            using (var frame = e.FrameReference.AcquireFrame())
+            {
+                if (frame != null)
+                {
+                    if (frame.DiscreteGestureResults != null)
+                    {
+                        var result = frame.DiscreteGestureResults[_wave];
+                        if (result.Confidence > 0.6)
+                        {
+                            Console.WriteLine("WAVE CONFIDENCE :" + result.Confidence);
+                        }
+                    }
+                }
             }
         }
 
@@ -333,6 +392,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
                         if (body.IsTracked)
                         {
+                            vgbFrameSource.TrackingId = body.TrackingId;
+                            vgbFrameReader.IsPaused = false;
+
                             this.DrawClippedEdges(body, dc);
 
                             IReadOnlyDictionary<JointType, Joint> joints = body.Joints;

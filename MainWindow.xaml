@@ -17,17 +17,18 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="385*" />
+            <RowDefinition Height="183*"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+        <Viewbox Grid.Row="1" HorizontalAlignment="Center" Grid.RowSpan="2">
             <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
         </Viewbox>
 
-        <StatusBar Grid.Row="2" Name="statusBar" VerticalAlignment="Center" Background="White" Foreground="{StaticResource MediumGreyBrush}" Grid.ColumnSpan="2">
+        <StatusBar Grid.Row="3" Name="statusBar" VerticalAlignment="Center" Background="White" Foreground="{StaticResource MediumGreyBrush}" Grid.ColumnSpan="2">
             <StatusBarItem Content="{Binding StatusText}" />
         </StatusBar>
-        <Label Content="Wave to Start" HorizontalAlignment="Left" Margin="-202,0,0,0" Grid.Row="1" VerticalAlignment="Center" FontSize="24"/>
+        <Label Content="Wave to Start" HorizontalAlignment="Left" Margin="-202,263,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="24"/>
     </Grid>
 </Window>
