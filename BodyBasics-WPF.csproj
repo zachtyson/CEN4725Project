@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CurrentExercise.xaml" />
     <Page Include="LowerWorkoutList.xaml" />
     <Page Include="MainMenu.xaml" />
     <Page Include="MainWindow.xaml">
@@ -84,6 +85,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CurrentExercise.xaml.cs">
+      <DependentUpon>CurrentExercise.xaml</DependentUpon>
     </Compile>
     <Compile Include="GestureDetector.cs" />
     <Compile Include="LowerWorkoutList.xaml.cs">
