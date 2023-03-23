@@ -1,0 +1,13 @@
+﻿<Page x:Class="Microsoft.Samples.Kinect.BodyBasics.MainMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Microsoft.Samples.Kinect.BodyBasics"
+      mc:Ignorable="d"
+      Title="MainMenu" Height="500" Width="500">
+    <Grid>
+        <TextBlock Text = "FITNESS FORM TRACKER" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"> </TextBlock>
+        <TextBlock Text = "WAVE TO START" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24"> </TextBlock>
+    </Grid>
+</Page>
