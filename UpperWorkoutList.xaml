@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Microsoft.Samples.Kinect.BodyBasics"
       mc:Ignorable="d"
-      Title="Page2" Height="500" Width="500">
+      Title="UpperWorkoutList" Height="500" Width="500">
     <Grid>
             <TextBlock Text = "UPPER BODY WORKOUTS" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
             <TextBlock Text = "CURLS" HorizontalAlignment="LEFT" Margin="0 100 0 0 " FontSize="24"></TextBlock>

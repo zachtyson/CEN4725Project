@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Microsoft.Samples.Kinect.BodyBasics"
       mc:Ignorable="d"
-      Title="Page1" Height="500" Width="500">
+      Title="CategoriesList" Height="500" Width="500">
     <Grid>
         <TextBlock Text = "WORKOUTS BY TYPE" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
         <TextBlock Text = "UPPER BODY" HorizontalAlignment="LEFT" Margin="0 100 0 0 " FontSize="24"></TextBlock>
