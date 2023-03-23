@@ -35,12 +35,22 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             stackPanel.Children.Add(tb);
             ProgressBar pb = new ProgressBar();
             pb.Orientation = Orientation.Vertical;
-            pb.Margin = new Thickness(0,0,0,-100);
+            pb.Margin = new Thickness(0,0,-1000,-50);
             pb.Height = 800;
             pb.Width = 50;
             pb.Value = 50;
+            //allow overflow
+            pb.ClipToBounds = false;
             pb.Foreground = Brushes.Yellow;
             stackPanel.Children.Add(pb);
+            TextBlock tb2 = new TextBlock();
+            tb2.Inlines.Add("WAVE TO EXIT");
+            tb2.HorizontalAlignment = HorizontalAlignment.Center;
+            tb2.VerticalAlignment = VerticalAlignment.Bottom;
+            tb2.FontSize = 24;
+            tb2.Margin = new Thickness(0, 0, 0, -100);
+            stackPanel.Children.Add(tb2);
+            
             this.Content = stackPanel;
         }
 
