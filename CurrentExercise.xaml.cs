@@ -34,6 +34,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             stackPanel = new StackPanel();
             stackPanel.Children.Add(tb);
             ProgressBar pb = new ProgressBar();
+            pb.Orientation = Orientation.Vertical;
+            pb.Margin = new Thickness(0,0,0,-100);
+            pb.Height = 800;
+            pb.Width = 50;
             pb.Value = 50;
             pb.Foreground = Brushes.Yellow;
             stackPanel.Children.Add(pb);

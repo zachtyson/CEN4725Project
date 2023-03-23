@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Fitness Form Tracker" 
-        Height="800" Width="800" 
+        Height="1000" Width="1920"
         Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing"
         KeyDown="OnKeyDownHandler">
@@ -13,9 +13,13 @@
     </Window.Resources>
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
 
-        <Viewbox HorizontalAlignment="Center" Stretch="None" Width="285" Margin="0,18,0,0">
-            <Image Source="{Binding ImageSource}" />
+        <Viewbox HorizontalAlignment="Center" Stretch="None" VerticalAlignment="Center" >
+            <Border BorderThickness="1"
+                    BorderBrush="#FF000000"
+                    VerticalAlignment="Top">
+            <Image Height="800" Width="800" Source="{Binding ImageSource}"  />
+            </Border>
         </Viewbox>
-        <Frame x:Name="Main" Margin="0 35 0 0 " Source="MainMenu.xaml" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="Main" VerticalAlignment="Center" Source="MainMenu.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
