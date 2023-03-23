@@ -40,7 +40,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.Content = stackPanel;
         }
 
-        public void ChangeBar(int num)
+        public void ChangeBar(double num)
         {
             ProgressBar pb = (ProgressBar)stackPanel.Children[1];
                 if (num < 50)
