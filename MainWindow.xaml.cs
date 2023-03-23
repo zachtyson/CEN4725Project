@@ -284,7 +284,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\Zach\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -331,17 +331,71 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 Main.Content = new MainMenu();
             }
-            if (e.Key == Key.S)
+            else if (e.Key == Key.S)
             {
                 Main.Content = new CategoriesListPage();
             }
-            if (e.Key == Key.D)
+            else if (e.Key == Key.D)
             {
                 Main.Content = new UpperWorkoutListPage();
             }
-            
-            
-            
+            else if (e.Key == Key.I)
+            {
+                Main.Content = new CurrentExercise("Pushup");
+            }
+            else if (e.Key == Key.O)
+            {
+                Main.Content = new CurrentExercise("Curl");
+            }
+            else if (e.Key == Key.P)
+            {
+                Main.Content = new CurrentExercise("Squat");
+            }
+            if (e.Key == Key.D0 || e.Key == Key.D1 ||e.Key == Key.D2 ||e.Key == Key.D3 ||e.Key == Key.D4 || e.Key == Key.D5 )
+            {
+                if (Main.Content.GetType() == typeof(CurrentExercise))
+                {
+                    int i = 0;
+                    switch (e.Key)
+                    {
+                        case Key.D0:
+                            i = 0;
+                            break;
+                        case Key.D1:
+                            i = 2;
+                            break;
+                        case Key.D2:
+                            i = 4;
+                            break;
+                        case Key.D3:
+                            i = 6;
+                            break;
+                        case Key.D4:
+                            i = 8;
+                            break;
+                        case Key.D5:
+                            i = 10;
+                            break;
+                    }
+                    CurrentExercise c = (CurrentExercise) Main.Content;
+                    c.ChangeBar(i*10);
+                }
+            } else if (e.Key == Key.Y)
+            {
+                if (Main.Content.GetType() == typeof(CurrentExercise))
+                {
+                    CurrentExercise c = (CurrentExercise) Main.Content;
+                    c.IncrementBar();
+                }
+            }
+            else if (e.Key == Key.U)
+            {
+                if (Main.Content.GetType() == typeof(CurrentExercise))
+                {
+                    CurrentExercise c = (CurrentExercise) Main.Content;
+                    c.DecrementBar();
+                }
+            }
         }
 
         private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
