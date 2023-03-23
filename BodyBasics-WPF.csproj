@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="MainMenu.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,12 +85,23 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GestureDetector.cs" />
+    <Compile Include="MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="CategoriesList.xaml" />
+    <Page Include="UpperWorkoutList.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriesList.xaml..cs">
+      <DependentUpon>CategoriesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpperWorkoutList.xaml..cs">
+      <DependentUpon>UpperWorkoutList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
