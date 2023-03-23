@@ -4,6 +4,8 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System.Windows.Input;
+
 namespace Microsoft.Samples.Kinect.BodyBasics
 {
     using System;
@@ -282,7 +284,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\Zachary\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -311,6 +313,35 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
 
             }
+        }
+        
+        private void BtnClickP1(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new CategoriesListPage();
+        }
+        
+        private void BtnClickP2(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new UpperWorkoutListPage();
+        }
+        
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.A)
+            {
+                Main.Content = new MainMenu();
+            }
+            if (e.Key == Key.S)
+            {
+                Main.Content = new CategoriesListPage();
+            }
+            if (e.Key == Key.D)
+            {
+                Main.Content = new UpperWorkoutListPage();
+            }
+            
+            
+            
         }
 
         private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
