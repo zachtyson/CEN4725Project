@@ -14,9 +14,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using System.Windows.Navigation;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
 
@@ -344,6 +347,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             
         }
 
+        public bool move_to_main_menu = false;
+
+        bool up = false;
+        bool low = false;
         private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
             using (var frame = e.FrameReference.AcquireFrame())
@@ -355,13 +362,53 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         var result = frame.DiscreteGestureResults[_wave];
                         if (result.Confidence > 0.6)
                         {
-                            Console.WriteLine("WAVE CONFIDENCE :" + result.Confidence);
+                            if (move_to_main_menu == false)
+                            {
+                                move_to_main_menu = true;
+                                Main.Content = new CategoriesListPage();
+                            }
+                            else { 
+
+                                /*
+                                Page page = Main.Content as Page ;
+                                Border upper = page.FindName("upper_border") as Border;
+                                Border lower = page.FindName("lower_border") as Border;
+
+                                if (!up)
+                                {
+                                    selectBorder(upper);
+                                    deselectBorder(lower);
+                                    up = true;
+                                    low = false;
+                                    return;
+                                }
+                                else if (!low)
+                                {
+                                    selectBorder(lower);
+                                    deselectBorder(upper);
+                                    low = true;
+                                    up = false;
+                                    return;
+                                }*/
+                            
+                    }
+                            
                         }
+                        
+
                     }
                 }
             }
         }
-
+        public void selectBorder(Border b)
+        {
+            b.BorderThickness = new System.Windows.Thickness(3);
+            b.BorderBrush = Brushes.Black;
+        }
+        public void deselectBorder(Border b)
+        {
+            b.BorderThickness = new System.Windows.Thickness(0);
+        }
         /// <summary>
         /// Execute shutdown tasks
         /// </summary>
