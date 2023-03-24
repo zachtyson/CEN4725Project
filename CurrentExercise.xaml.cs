@@ -40,6 +40,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.exercise = exercise;
         }
 
+        public void ChangeBar(double num)
         public void ChangeBar(float num)
         {
             ProgressBar pb = (ProgressBar)stackPanel.Children[1];
