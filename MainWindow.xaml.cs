@@ -271,7 +271,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         Gesture _wave;
         Gesture _push_up;
         Gesture _squats;
-
+        Gesture _curl;
         /// <summary>
         /// Execute start up tasks
         /// </summary>
@@ -287,7 +287,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\Zach\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -305,6 +305,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         else if (gesture.Name == "squats")
                         {
                             _squats = gesture;
+                        }
+                        else if (gesture.Name == "curl")
+                        {
+                            _curl = gesture;
                         }
                     }
                 }
@@ -421,7 +425,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 move_to_main_menu = true;
                                 Main.Content = new CategoriesListPage();
                             }
-                            else { 
+                            else {
 
                                 /*
                                 Page page = Main.Content as Page ;
@@ -445,10 +449,46 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                     return;
                                 }*/
                             
-                    }
+                            }
                             
                         }
-                        
+                        result = frame.DiscreteGestureResults[_squats];
+
+                        if (Main.Content.GetType() == typeof(CurrentExercise))
+                        {
+                            CurrentExercise c = (CurrentExercise)Main.Content;
+                            if (c.exercise == "Squat")
+                            {
+                                c.ChangeBar(result.Confidence * 100);
+                            }
+                            
+                        }
+
+                        result = frame.DiscreteGestureResults[_push_up];
+
+                        if (Main.Content.GetType() == typeof(CurrentExercise))
+                        {
+                            CurrentExercise c = (CurrentExercise)Main.Content;
+                            if (c.exercise == "Pushup")
+                            {
+                                c.ChangeBar(result.Confidence * 100);
+                            }
+
+                        }
+                        result = frame.DiscreteGestureResults[_curl];
+
+                        if (Main.Content.GetType() == typeof(CurrentExercise))
+                        {
+                            CurrentExercise c = (CurrentExercise)Main.Content;
+                            if (c.exercise == "Curl")
+                            {
+                                c.ChangeBar(result.Confidence * 100);
+                            }
+
+                        }
+
+
+
 
                     }
                 }

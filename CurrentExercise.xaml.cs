@@ -18,9 +18,8 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             tb.Inlines.Add("Sup");
             this.Content = tb;
         }
-
         private StackPanel stackPanel;
-
+        public string exercise; 
         public CurrentExercise(String exercise)
         {
             //<TextBlock Text = "LOWER BODY WORKOUTS" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
@@ -38,9 +37,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             pb.Foreground = Brushes.Yellow;
             stackPanel.Children.Add(pb);
             this.Content = stackPanel;
+            this.exercise = exercise;
         }
 
-        public void ChangeBar(int num)
+        public void ChangeBar(float num)
         {
             ProgressBar pb = (ProgressBar)stackPanel.Children[1];
                 if (num < 50)
