@@ -677,7 +677,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             var result = frame.DiscreteGestureResults[currentGesture];
                             if (result.Confidence > 0.7)
                             {
-                                c.ChangeBar(result.Confidence);
+                                c.ChangeBar(result.Confidence*100);
                             }
                             if(this.bodies != null)
                                 //Check for any closed hands
