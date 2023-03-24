@@ -292,7 +292,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\Zachary\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -475,6 +475,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveUp();
             }
+            System.Threading.Thread.Sleep(50);
         }
 
         private void WaveDownGesture()
@@ -494,6 +495,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveDown();
             }
+            System.Threading.Thread.Sleep(50);
         }
 
         private void CloseHand()
@@ -558,6 +560,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
             }
             //Do nothing for if they're mid exercise, since it may be too easy to accidentally exit
+            System.Threading.Thread.Sleep(50);
         }
         
         private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
@@ -566,6 +569,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 if (frame != null)
                 {
+                    double waveConfidence = 0.2;
                     if (frame.DiscreteGestureResults != null)
                     {
                         //Not entirely sure how this code works -Zach
@@ -573,7 +577,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         if(Main.Content.GetType() == typeof(MainMenu))
                         {
                             //From what I can see, this checks for a wave gesture, but nothing else
-                            CurrentExercise c = (CurrentExercise) Main.Content;
+                            //CurrentExercise c = (CurrentExercise) Main.Content;
                             var result = frame.DiscreteGestureResults[_wave];
                             if (result.Confidence > 0.6)
                             {
@@ -586,15 +590,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             var result = frame.DiscreteGestureResults[_wave_up];
                             var result2 = frame.DiscreteGestureResults[_wave_down];
                             //get handstate from body
-                            if (result.Confidence > 0.7)
+                            if (result.Confidence > waveConfidence)
                             {
                                 WaveUpGesture();
                             }
-                            else if (result2.Confidence > 0.7)
+                            else if (result2.Confidence > waveConfidence)
                             {
                                 WaveDownGesture();
+
                             }
-                            if(this.bodies != null)
+                            if (this.bodies != null)
                                 //Check for any closed hands
                             {
                                 foreach (var body in this.bodies)
@@ -617,11 +622,11 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             var result = frame.DiscreteGestureResults[_wave_up];
                             var result2 = frame.DiscreteGestureResults[_wave_down];
                             //get handstate from body
-                            if (result.Confidence > 0.7)
+                            if (result.Confidence > waveConfidence)
                             {
                                 WaveUpGesture();
                             }
-                            else if (result2.Confidence > 0.7)
+                            else if (result2.Confidence > waveConfidence)
                             {
                                 WaveDownGesture();
                             }
@@ -647,11 +652,11 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             var result = frame.DiscreteGestureResults[_wave_up];
                             var result2 = frame.DiscreteGestureResults[_wave_down];
                             //get handstate from body
-                            if (result.Confidence > 0.7)
+                            if (result.Confidence > waveConfidence)
                             {
                                 WaveUpGesture();
                             }
-                            else if (result2.Confidence > 0.7)
+                            else if (result2.Confidence > waveConfidence)
                             {
                                 WaveDownGesture();
                             }
@@ -674,11 +679,31 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         else if (Main.Content.GetType() == typeof(CurrentExercise))
                         {
                             CurrentExercise c = (CurrentExercise) Main.Content;
-                            var result = frame.DiscreteGestureResults[currentGesture];
-                            if (result.Confidence > 0.7)
+                            DiscreteGestureResult result = frame.DiscreteGestureResults[_curl];
+                            var waveResult = frame.DiscreteGestureResults[_wave];
+                            if (c.exercise == "PUSHUPS")
+                            {
+                                result = frame.DiscreteGestureResults[_push_up];
+                            }
+                            else if (c.exercise == "CURLS")
+                            {
+                                result = frame.DiscreteGestureResults[_curl];
+                            }
+                            else if (c.exercise == "SQUATS")
+                            {
+                                result = frame.DiscreteGestureResults[_squats];
+                            }
+
+                            if (result != null && result.Confidence > 0.7)
                             {
                                 c.ChangeBar(result.Confidence*100);
                             }
+
+                            if (waveResult.Confidence > 0.7)
+                            {
+                                WaveGesture();
+                            }
+
                             if(this.bodies != null)
                                 //Check for any closed hands
                             {
@@ -700,15 +725,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
             }
         }
-        public void selectBorder(Border b)
-        {
-            b.BorderThickness = new System.Windows.Thickness(3);
-            b.BorderBrush = Brushes.Black;
-        }
-        public void deselectBorder(Border b)
-        {
-            b.BorderThickness = new System.Windows.Thickness(0);
-        }
+
         /// <summary>
         /// Execute shutdown tasks
         /// </summary>
