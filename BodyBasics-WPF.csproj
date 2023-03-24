@@ -76,7 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="CurrentExercise.xaml" />
-    <Page Include="LowerWorkoutList.xaml" />
+    <Page Include="LowerWorkoutListPage.xaml" />
     <Page Include="MainMenu.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -90,8 +90,8 @@
       <DependentUpon>CurrentExercise.xaml</DependentUpon>
     </Compile>
     <Compile Include="GestureDetector.cs" />
-    <Compile Include="LowerWorkoutList.xaml.cs">
-      <DependentUpon>LowerWorkoutList.xaml</DependentUpon>
+    <Compile Include="LowerWorkoutListPage.xaml.cs">
+      <DependentUpon>LowerWorkoutListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
