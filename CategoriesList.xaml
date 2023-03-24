@@ -5,15 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Microsoft.Samples.Kinect.BodyBasics"
       mc:Ignorable="d"
-      Title="CategoriesList" Height="571" Width="689">
+      Title="CategoriesList" Height="500" Width="500">
     <Grid>
         <TextBlock Text = "WORKOUTS BY TYPE" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"></TextBlock>
-        <Border x:Name="upper_border" Width="153" HorizontalAlignment="Left" Height="72" VerticalAlignment="Top" Margin="10,123,0,0" BorderThickness="3,3,3,3">
-            <TextBlock x:Name="upper_body_text" Text = "UPPER BODY" HorizontalAlignment="Left" Margin="10,10,0,10" FontSize="24" Width="135"></TextBlock>
-        </Border>
-        <Border x:Name="lower_border" Margin="0,200,526,318">
-            <TextBlock x:Name="lower_body_text" Text = "LOWER BODY" HorizontalAlignment="Left" Margin="10,10,0,-13" FontSize="24" Width="246"></TextBlock>
-        </Border>
-        <TextBlock x:Name="exit_text" Text = "EXIT" HorizontalAlignment="Left" Margin="0,300,0,213" FontSize="24" Width="69"></TextBlock>
+        
     </Grid>
 </Page>

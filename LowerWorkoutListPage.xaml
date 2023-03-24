@@ -8,7 +8,5 @@
       Title="LowerWorkoutList" Height="500" Width="500">
     <Grid>
         <TextBlock Text = "LOWER BODY WORKOUTS" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
-        <TextBlock Text = "SQUAT" HorizontalAlignment="LEFT" Margin="0 100 0 0 " FontSize="24"></TextBlock>
-        <TextBlock Text = "EXIT" HorizontalAlignment="LEFT" Margin="0 200 0 0 " FontSize="24"></TextBlock>
     </Grid>
 </Page>
