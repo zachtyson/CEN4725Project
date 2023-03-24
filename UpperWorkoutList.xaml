@@ -7,9 +7,6 @@
       mc:Ignorable="d"
       Title="UpperWorkoutList" Height="500" Width="500">
     <Grid>
-            <TextBlock Text = "UPPER BODY WORKOUTS" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
-            <TextBlock Text = "CURLS" HorizontalAlignment="LEFT" Margin="0 100 0 0 " FontSize="24"></TextBlock>
-            <TextBlock Text = "PUSHUPS" HorizontalAlignment="LEFT" Margin="0 200 0 0 " FontSize="24"></TextBlock>
-            <TextBlock Text = "EXIT" HorizontalAlignment="LEFT" Margin="0 300 0 0 " FontSize="24"></TextBlock>
-        </Grid>
+        <TextBlock Text = "UPPER BODY WORKOUTS" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
+    </Grid>
 </Page>
