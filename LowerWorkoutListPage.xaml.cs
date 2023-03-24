@@ -2,9 +2,9 @@
 
 namespace Microsoft.Samples.Kinect.BodyBasics
 {
-    public partial class LowerWorkoutList : Page
+    public partial class LowerWorkoutListPage : Page
     {
-        public LowerWorkoutList()
+        public LowerWorkoutListPage()
         {
             InitializeComponent();
         }
