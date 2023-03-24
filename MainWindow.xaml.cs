@@ -528,12 +528,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 //this can be either 1,2, or 3
                 if (o == 1)
                 {
-                    Main.Content = new CurrentExercise("PUSHUPS");
-                    currentGestureName = "PUSHUPS";
+                    Main.Content = new CurrentExercise("CURLS");
+                    currentGestureName = "CURLS";
                 }
                 else if (o == 2)
                 {
-                    Main.Content = new CurrentExercise("CURLS");
+                    Main.Content = new CurrentExercise("PUSHUPS");
                     currentGestureName = "CURLS";
                 }
                 else if (o == 3)
