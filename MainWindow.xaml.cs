@@ -274,6 +274,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         Gesture _curl;
         Gesture _wave_up;
         Gesture _wave_down;
+        
+        
+
         /// <summary>
         /// Execute start up tasks
         /// </summary>
@@ -289,7 +292,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\Zachary\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -656,8 +659,43 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 //Check for any closed hands
                             {
                                 foreach (var body in this.bodies)
-                            else {
-
+                                {
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (Main.Content.GetType() == typeof(CurrentExercise))
+                        {
+                            CurrentExercise c = (CurrentExercise) Main.Content;
+                            var result = frame.DiscreteGestureResults[currentGesture];
+                            if (result.Confidence > 0.7)
+                            {
+                                c.ChangeBar(result.Confidence*100);
+                            }
+                            if(this.bodies != null)
+                                //Check for any closed hands
+                            {
+                                foreach (var body in this.bodies)
+                                {
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
                 }
             }
