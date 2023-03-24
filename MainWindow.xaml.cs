@@ -271,6 +271,11 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         Gesture _wave;
         Gesture _push_up;
         Gesture _squats;
+        Gesture _curl;
+        Gesture _wave_up;
+        Gesture _wave_down;
+        
+        
 
         /// <summary>
         /// Execute start up tasks
@@ -306,6 +311,19 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         {
                             _squats = gesture;
                         }
+                        else if (gesture.Name == "curl")
+                        {
+                            _curl = gesture;
+                        }
+                        else if (gesture.Name == "wave_up")
+                        {
+                            _wave_up = gesture;
+                        }
+                        else if (gesture.Name == "wave_down")
+                        {
+                            _wave_down = gesture;
+                        }
+                        
                     }
                 }
                 this.vgbFrameReader = this.vgbFrameSource.OpenReader();
@@ -541,11 +559,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             }
             //Do nothing for if they're mid exercise, since it may be too easy to accidentally exit
         }
-
-        public bool move_to_main_menu = false;
-
-        bool up = false;
-        bool low = false;
+        
         private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
             using (var frame = e.FrameReference.AcquireFrame())
@@ -554,43 +568,134 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 {
                     if (frame.DiscreteGestureResults != null)
                     {
-                        var result = frame.DiscreteGestureResults[_wave];
-                        if (result.Confidence > 0.6)
+                        //Not entirely sure how this code works -Zach
+                        //But from what I can see we have to 
+                        if(Main.Content.GetType() == typeof(MainMenu))
                         {
-                            if (move_to_main_menu == false)
+                            //From what I can see, this checks for a wave gesture, but nothing else
+                            CurrentExercise c = (CurrentExercise) Main.Content;
+                            var result = frame.DiscreteGestureResults[_wave];
+                            if (result.Confidence > 0.6)
                             {
-                                move_to_main_menu = true;
                                 Main.Content = new CategoriesListPage();
                             }
-                            else { 
-
-                                /*
-                                Page page = Main.Content as Page ;
-                                Border upper = page.FindName("upper_border") as Border;
-                                Border lower = page.FindName("lower_border") as Border;
-
-                                if (!up)
+                        }  
+                        else if (Main.Content.GetType() == typeof(CategoriesListPage))
+                        {
+                            CategoriesListPage c = (CategoriesListPage) Main.Content;
+                            var result = frame.DiscreteGestureResults[_wave_up];
+                            var result2 = frame.DiscreteGestureResults[_wave_down];
+                            //get handstate from body
+                            if (result.Confidence > 0.7)
+                            {
+                                WaveUpGesture();
+                            }
+                            else if (result2.Confidence > 0.7)
+                            {
+                                WaveDownGesture();
+                            }
+                            if(this.bodies != null)
+                                //Check for any closed hands
+                            {
+                                foreach (var body in this.bodies)
                                 {
-                                    selectBorder(upper);
-                                    deselectBorder(lower);
-                                    up = true;
-                                    low = false;
-                                    return;
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
                                 }
-                                else if (!low)
+                            }
+                           
+                        }
+                        else if (Main.Content.GetType() == typeof(UpperWorkoutListPage))
+                        {
+                            UpperWorkoutListPage c = (UpperWorkoutListPage) Main.Content;
+                            var result = frame.DiscreteGestureResults[_wave_up];
+                            var result2 = frame.DiscreteGestureResults[_wave_down];
+                            //get handstate from body
+                            if (result.Confidence > 0.7)
+                            {
+                                WaveUpGesture();
+                            }
+                            else if (result2.Confidence > 0.7)
+                            {
+                                WaveDownGesture();
+                            }
+                            if(this.bodies != null)
+                                //Check for any closed hands
+                            {
+                                foreach (var body in this.bodies)
                                 {
-                                    selectBorder(lower);
-                                    deselectBorder(upper);
-                                    low = true;
-                                    up = false;
-                                    return;
-                                }*/
-                            
-                    }
-                            
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (Main.Content.GetType() == typeof(LowerWorkoutListPage))
+                        {
+                            LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
+                            var result = frame.DiscreteGestureResults[_wave_up];
+                            var result2 = frame.DiscreteGestureResults[_wave_down];
+                            //get handstate from body
+                            if (result.Confidence > 0.7)
+                            {
+                                WaveUpGesture();
+                            }
+                            else if (result2.Confidence > 0.7)
+                            {
+                                WaveDownGesture();
+                            }
+                            if(this.bodies != null)
+                                //Check for any closed hands
+                            {
+                                foreach (var body in this.bodies)
+                                {
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (Main.Content.GetType() == typeof(CurrentExercise))
+                        {
+                            CurrentExercise c = (CurrentExercise) Main.Content;
+                            var result = frame.DiscreteGestureResults[currentGesture];
+                            if (result.Confidence > 0.7)
+                            {
+                                c.ChangeBar(result.Confidence);
+                            }
+                            if(this.bodies != null)
+                                //Check for any closed hands
+                            {
+                                foreach (var body in this.bodies)
+                                {
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
                         
-
                     }
                 }
             }
