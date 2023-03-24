@@ -287,7 +287,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\Zach\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\Zachary\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -397,6 +397,92 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 {
                     CurrentExercise c = (CurrentExercise) Main.Content;
                     c.DecrementBar();
+                }
+            }
+        }
+        
+        private Gesture currentGesture = null;
+        private String currentGestureName = null;
+        
+        private void WaveGesture()
+        {
+            //Wave gesture is for 1) Initial main menu screen, 2) Exiting an exercise
+            //Confirming actions for categories is a close hand gesture since we figured that wave up and wave down would be too close to a wave gesture
+            if (Main.Content.GetType() == typeof(MainMenu))
+            {
+                Main.Content = new CategoriesListPage();
+            }
+            if(Main.Content.GetType() == typeof(CurrentExercise))
+            {
+                Main.Content = new CategoriesListPage();
+            }
+        }
+        
+        private void WaveUpGesture()
+        {
+            if (Main.Content.GetType() == typeof(CategoriesListPage))
+            {
+                CategoriesListPage c = (CategoriesListPage) Main.Content;
+                int o = c.WaveUp();
+            }
+        }
+        
+        private void WaveDownGesture()
+        {
+            if (Main.Content.GetType() == typeof(CategoriesListPage))
+            {
+                CategoriesListPage c = (CategoriesListPage) Main.Content;
+                int o = c.WaveDown();
+            }
+        }
+
+        private void CloseHand()
+        {
+            //Close hand is the gesture to confirm, except for the main menu
+            if (Main.Content.GetType() == typeof(CategoriesListPage))
+            {
+                CategoriesListPage c = (CategoriesListPage) Main.Content;
+                int o = c.GetCategoryIndex();
+                //this can be either 1,2, or 3
+                if (o == 1)
+                {
+                    Main.Content = new UpperWorkoutListPage();
+                }
+                else if (o == 2)
+                {
+                    Main.Content = new LowerWorkoutListPage();
+                }
+                else if (o == 3)
+                {
+                    //If it's 3, then they want to exit the app
+                    Application.Current.Shutdown();
+                }
+            } else if (Main.Content.GetType() == typeof(UpperWorkoutListPage))
+            {
+                
+            }
+        }
+
+        private void ConfirmAction()
+        {
+            //For like when they're selecting a workout and they want to confirm it
+            if (Main.Content.GetType() == typeof(CategoriesListPage))
+            {
+                CategoriesListPage c = (CategoriesListPage) Main.Content;
+                int o = c.GetCategoryIndex();
+                //this can be either 1,2, or 3
+                if (o == 1)
+                {
+                    Main.Content = new UpperWorkoutListPage();
+                }
+                else if (o == 2)
+                {
+                    Main.Content = new LowerWorkoutListPage();
+                }
+                else if (o == 3)
+                {
+                    //If it's 3, then they want to exit the app
+                    Application.Current.Shutdown();
                 }
             }
         }
