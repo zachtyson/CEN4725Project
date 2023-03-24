@@ -399,6 +399,26 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                     c.DecrementBar();
                 }
             }
+            else if (e.Key == Key.V)
+            {
+                //V = Wave
+                WaveGesture();
+            }
+            else if (e.Key == Key.B)
+            {
+                //B = Wave Up
+                WaveUpGesture();
+            }
+            else if (e.Key == Key.N)
+            {
+                //N = Wave Down
+                WaveDownGesture();
+            }
+            else if (e.Key == Key.M)
+            {
+                //M = Close Hand
+                CloseHand();
+            }
         }
         
         private Gesture currentGesture = null;
@@ -411,10 +431,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             if (Main.Content.GetType() == typeof(MainMenu))
             {
                 Main.Content = new CategoriesListPage();
-            }
-            if(Main.Content.GetType() == typeof(CurrentExercise))
+                currentGestureName = null;
+            } 
+            else if(Main.Content.GetType() == typeof(CurrentExercise))
             {
                 Main.Content = new CategoriesListPage();
+                currentGestureName = null;
             }
         }
         
@@ -425,13 +447,33 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 CategoriesListPage c = (CategoriesListPage) Main.Content;
                 int o = c.WaveUp();
             }
+            else if(Main.Content.GetType() == typeof(UpperWorkoutListPage))
+            {
+                UpperWorkoutListPage c = (UpperWorkoutListPage) Main.Content;
+                int o = c.WaveUp();
+            }
+            else if(Main.Content.GetType() == typeof(LowerWorkoutListPage))
+            {
+                LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
+                int o = c.WaveUp();
+            }
         }
-        
+
         private void WaveDownGesture()
         {
             if (Main.Content.GetType() == typeof(CategoriesListPage))
             {
                 CategoriesListPage c = (CategoriesListPage) Main.Content;
+                int o = c.WaveDown();
+            }
+            else if (Main.Content.GetType() == typeof(UpperWorkoutListPage))
+            {
+                UpperWorkoutListPage c = (UpperWorkoutListPage) Main.Content;
+                int o = c.WaveDown();
+            }
+            else if (Main.Content.GetType() == typeof(LowerWorkoutListPage))
+            {
+                LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveDown();
             }
         }
@@ -447,10 +489,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 if (o == 1)
                 {
                     Main.Content = new UpperWorkoutListPage();
+                    currentGestureName = null;
                 }
                 else if (o == 2)
                 {
                     Main.Content = new LowerWorkoutListPage();
+                    currentGestureName = null;
                 }
                 else if (o == 3)
                 {
@@ -459,32 +503,43 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
             } else if (Main.Content.GetType() == typeof(UpperWorkoutListPage))
             {
-                
-            }
-        }
-
-        private void ConfirmAction()
-        {
-            //For like when they're selecting a workout and they want to confirm it
-            if (Main.Content.GetType() == typeof(CategoriesListPage))
-            {
-                CategoriesListPage c = (CategoriesListPage) Main.Content;
+                UpperWorkoutListPage c = (UpperWorkoutListPage) Main.Content;
                 int o = c.GetCategoryIndex();
                 //this can be either 1,2, or 3
                 if (o == 1)
                 {
-                    Main.Content = new UpperWorkoutListPage();
+                    Main.Content = new CurrentExercise("PUSHUPS");
+                    currentGestureName = "PUSHUPS";
                 }
                 else if (o == 2)
                 {
-                    Main.Content = new LowerWorkoutListPage();
+                    Main.Content = new CurrentExercise("CURLS");
+                    currentGestureName = "CURLS";
                 }
                 else if (o == 3)
                 {
                     //If it's 3, then they want to exit the app
-                    Application.Current.Shutdown();
+                    Main.Content = new CategoriesListPage();
+                    currentGestureName = null;
                 }
             }
+            else if (Main.Content.GetType() == typeof(LowerWorkoutListPage))
+            {
+                LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
+                int o = c.GetCategoryIndex();
+                //this can be either 1,2, or 3
+                if (o == 1)
+                {
+                    Main.Content = new CurrentExercise("SQUATS");
+                    currentGestureName = "SQUATS";
+                }
+                else if (o == 2)
+                {
+                    Main.Content = new CategoriesListPage();
+                    currentGestureName = null;
+                }
+            }
+            //Do nothing for if they're mid exercise, since it may be too easy to accidentally exit
         }
 
         public bool move_to_main_menu = false;
