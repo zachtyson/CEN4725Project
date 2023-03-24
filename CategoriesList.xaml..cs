@@ -23,7 +23,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlocks[3] = new TextBlock();
             textBlocks[3].Text = "WORKOUT CATEGORIES";
             textBlocks[3].HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-            textBlocks[3].Margin = new System.Windows.Thickness(000, -200, 0, 0);
+            textBlocks[3].Margin = new System.Windows.Thickness(000, -250, 0, 0);
             textBlocks[3].FontSize = 24;
             textBlocks[3].TextAlignment = System.Windows.TextAlignment.Left;
 
@@ -45,11 +45,19 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlocks[2].Margin = new System.Windows.Thickness(-300, 150, 0, 0);
             textBlocks[2].FontSize = 24;
             textBlocks[2].TextAlignment = System.Windows.TextAlignment.Left;
+
             stackPanel = new StackPanel();
             stackPanel.Children.Add(textBlocks[3]);
             stackPanel.Children.Add(textBlocks[0]);
             stackPanel.Children.Add(textBlocks[1]);
             stackPanel.Children.Add(textBlocks[2]);
+            
+            TextBlock exitMessage = new TextBlock();
+            exitMessage.Text = "Wave to select, Close your fist to confirm";
+            exitMessage.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+            exitMessage.FontSize = 16;
+            exitMessage.Margin = new System.Windows.Thickness(0, -600, 0, 0000);
+            stackPanel.Children.Add(exitMessage);
             this.Content = stackPanel;
         }
         

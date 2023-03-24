@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Microsoft.Samples.Kinect.BodyBasics
 {
@@ -13,7 +14,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlocks[2] = new TextBlock();
             textBlocks[2].Text = "LOWER WORKOUTS";
             textBlocks[2].HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-            textBlocks[2].Margin = new System.Windows.Thickness(000, -200, 0, 0);
+            textBlocks[2].Margin = new System.Windows.Thickness(000, -250, 0, 0);
             textBlocks[2].FontSize = 24;
             textBlocks[2].TextAlignment = System.Windows.TextAlignment.Left;
             textBlocks[0] = new TextBlock();
@@ -28,11 +29,18 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlocks[1].Margin = new System.Windows.Thickness(-300, 100, 0, 0);
             textBlocks[1].FontSize = 24;
             textBlocks[1].TextAlignment = System.Windows.TextAlignment.Left;
-            
+
+            TextBlock exitMessage = new TextBlock();
+            exitMessage.Text = "Wave to select, Close your fist to confirm";
+            exitMessage.HorizontalAlignment = HorizontalAlignment.Center;
+            exitMessage.FontSize = 16;
+            exitMessage.Margin = new Thickness(0, -420, 0, 0000);
+
             stackPanel = new StackPanel();
             stackPanel.Children.Add(textBlocks[2]);
             stackPanel.Children.Add(textBlocks[0]);
             stackPanel.Children.Add(textBlocks[1]);
+            stackPanel.Children.Add(exitMessage);
             this.Content = stackPanel;
         }
         
