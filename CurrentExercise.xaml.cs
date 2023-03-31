@@ -49,7 +49,29 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             tb2.FontSize = 24;
             tb2.Margin = new Thickness(0, 0, 0, -100);
             stackPanel.Children.Add(tb2);
-            
+
+            // counter label textBlock
+            TextBlock tb3 = new TextBlock();
+            tb3.Inlines.Add("COUNT");
+            tb3.HorizontalAlignment = HorizontalAlignment.Left;
+            tb3.VerticalAlignment = VerticalAlignment.Center;
+            tb3.FontSize = 24;
+            tb3.Margin = new Thickness(-300, 75, 0, 0);
+            stackPanel.Children.Add(tb3);
+
+            // count textBlock
+
+            TextBlock tb4 = new TextBlock();
+            tb4.Text += 0;
+            tb4.Inlines.Add(tb4.Text);
+            tb4.HorizontalAlignment = HorizontalAlignment.Left;
+            tb4.VerticalAlignment = VerticalAlignment.Center;
+            tb4.FontSize = 24;
+            tb4.Margin = new Thickness(-300, 100, 0, 0);
+            stackPanel.Children.Add(tb4);
+
+
+
             this.Content = stackPanel;
             this.exercise = exercise;
         }
@@ -136,6 +158,34 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 pb.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 0));
             }
             pb.Value = num;
+        }
+
+        public void Counter()
+        {
+            ProgressBar pb = (ProgressBar)stackPanel.Children[1];
+            TextBlock tb = (TextBlock)stackPanel.Children[4];
+            double num = pb.Value;
+
+            if (num < 0)
+            {
+                num = 0;
+            }
+            else if (num > 100)
+            {
+                num = 100;
+            }
+
+            if (num > 80)
+            {
+                tb.Inlines.Clear();
+                int count = int.Parse(tb.Text);
+                count++;
+                tb.Text = count.ToString();
+                tb.Inlines.Add(tb.Text);
+            }
+
+
+
         }
         
     }
