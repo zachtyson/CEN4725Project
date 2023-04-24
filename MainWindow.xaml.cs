@@ -133,6 +133,8 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         /// </summary>
         private string statusText = null;
 
+        private int gestureWaitConst = 250;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -274,6 +276,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         Gesture _curl;
         Gesture _wave_up;
         Gesture _wave_down;
+        private long lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         
         
 
@@ -292,7 +295,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\Zach\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -444,6 +447,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         
         private void WaveGesture()
         {
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             //Wave gesture is for 1) Initial main menu screen, 2) Exiting an exercise
             //Confirming actions for categories is a close hand gesture since we figured that wave up and wave down would be too close to a wave gesture
             if (Main.Content.GetType() == typeof(MainMenu))
@@ -460,6 +469,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         
         private void WaveUpGesture()
         {
+            if (lastWave + gestureWaitConst < DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             if (Main.Content.GetType() == typeof(CategoriesListPage))
             {
                 CategoriesListPage c = (CategoriesListPage) Main.Content;
@@ -475,11 +490,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveUp();
             }
-            System.Threading.Thread.Sleep(50);
         }
 
         private void WaveDownGesture()
         {
+            if (lastWave + gestureWaitConst < DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             if (Main.Content.GetType() == typeof(CategoriesListPage))
             {
                 CategoriesListPage c = (CategoriesListPage) Main.Content;
@@ -495,11 +515,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveDown();
             }
-            System.Threading.Thread.Sleep(50);
         }
 
         private void CloseHand()
         {
+            if (lastWave + gestureWaitConst < DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             //Close hand is the gesture to confirm, except for the main menu
             if (Main.Content.GetType() == typeof(CategoriesListPage))
             {
@@ -560,7 +585,6 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 }
             }
             //Do nothing for if they're mid exercise, since it may be too easy to accidentally exit
-            System.Threading.Thread.Sleep(50);
         }
         
         private void vgbFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
@@ -569,7 +593,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 if (frame != null)
                 {
-                    double waveConfidence = 0.2;
+                    double waveConfidence = 0.5;
                     if (frame.DiscreteGestureResults != null)
                     {
                         //Not entirely sure how this code works -Zach
