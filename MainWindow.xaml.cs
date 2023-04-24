@@ -469,7 +469,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         
         private void WaveUpGesture()
         {
-            if (lastWave + gestureWaitConst < DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
             {
                 return;
             }
@@ -490,11 +490,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveUp();
             }
+            else if (Main.Content.GetType() == typeof(ConfirmPage))
+            {
+                ConfirmPage c = (ConfirmPage)Main.Content;
+                int o = c.WaveUp();
+            }
         }
 
         private void WaveDownGesture()
         {
-            if (lastWave + gestureWaitConst < DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
             {
                 return;
             }
@@ -515,11 +520,16 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.WaveDown();
             }
+            else if (Main.Content.GetType() == typeof(ConfirmPage))
+            {
+                ConfirmPage c = (ConfirmPage)Main.Content;
+                int o = c.WaveDown();
+            }
         }
 
         private void CloseHand()
         {
-            if (lastWave + gestureWaitConst < DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
             {
                 return;
             }
@@ -544,7 +554,8 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 else if (o == 3)
                 {
                     //If it's 3, then they want to exit the app
-                    Application.Current.Shutdown();
+                    Main.Content = new ConfirmPage();
+                    currentGestureName = null;
                 }
             } else if (Main.Content.GetType() == typeof(UpperWorkoutListPage))
             {
@@ -572,7 +583,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 LowerWorkoutListPage c = (LowerWorkoutListPage) Main.Content;
                 int o = c.GetCategoryIndex();
-                //this can be either 1,2, or 3
+                //this can be either 1,2
                 if (o == 1)
                 {
                     Main.Content = new CurrentExercise("SQUATS");
@@ -582,6 +593,24 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 {
                     Main.Content = new CategoriesListPage();
                     currentGestureName = null;
+                }
+            }
+            else if (Main.Content.GetType() == typeof(ConfirmPage))
+            {
+                ConfirmPage c = (ConfirmPage)Main.Content;
+                int o = c.GetCategoryIndex();
+                //this can be either 1,2
+                if (o == 1)
+                {
+                    //1 = return to menu
+                    Main.Content = new CategoriesListPage();
+                    currentGestureName = null;
+                }
+                else if (o == 2)
+                {
+                    //2 = exit program
+                    Application.Current.Shutdown();
+                  
                 }
             }
             //Do nothing for if they're mid exercise, since it may be too easy to accidentally exit
