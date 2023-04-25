@@ -295,7 +295,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\Zach\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
@@ -529,7 +529,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void CloseHand()
         {
-            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            if (lastWave + 1000 > DateTimeOffset.Now.ToUnixTimeMilliseconds())
             {
                 return;
             }
@@ -600,13 +600,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 ConfirmPage c = (ConfirmPage)Main.Content;
                 int o = c.GetCategoryIndex();
                 //this can be either 1,2
-                if (o == 1)
+                if (o == 0)
                 {
                     //1 = return to menu
                     Main.Content = new CategoriesListPage();
                     currentGestureName = null;
                 }
-                else if (o == 2)
+                else if (o == 1)
                 {
                     //2 = exit program
                     Application.Current.Shutdown();
@@ -715,6 +715,36 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                             }
                             if(this.bodies != null)
                                 //Check for any closed hands
+                            {
+                                foreach (var body in this.bodies)
+                                {
+                                    if (body.IsTracked)
+                                    {
+                                        if (body.HandRightState == HandState.Closed)
+                                        {
+                                            CloseHand();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (Main.Content.GetType() == typeof(ConfirmPage))
+                        {
+                            ConfirmPage c = (ConfirmPage)Main.Content;
+                            var result = frame.DiscreteGestureResults[_wave_up];
+                            var result2 = frame.DiscreteGestureResults[_wave_down];
+                            //get handstate from body
+                            if (result.Confidence > waveConfidence)
+                            {
+                                WaveUpGesture();
+                            }
+                            else if (result2.Confidence > waveConfidence)
+                            {
+                                WaveDownGesture();
+                            }
+                            if (this.bodies != null)
+                            //Check for any closed hands
                             {
                                 foreach (var body in this.bodies)
                                 {

@@ -25,13 +25,13 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlocks[2].TextAlignment = System.Windows.TextAlignment.Left;
 
             textBlocks[0] = new TextBlock();
-            textBlocks[0].Text = "RETURN TO MENU";
+            textBlocks[0].Text = "RETURN";
             textBlocks[0].HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             textBlocks[0].Margin = new System.Windows.Thickness(-300, 50, 0, 0);
             textBlocks[0].TextAlignment = System.Windows.TextAlignment.Left;
-            textBlocks[0].FontSize = 24;
+            textBlocks[0].FontSize = 36;
             textBlocks[1] = new TextBlock();
-            textBlocks[1].Text = "CONFIRM EXIT";
+            textBlocks[1].Text = "EXIT";
             textBlocks[1].HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             textBlocks[1].Margin = new System.Windows.Thickness(-300, 100, 0, 0);
             textBlocks[1].FontSize = 24;
@@ -67,7 +67,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlock1.FontSize = 24;
             if (hoveredWorkout == 1)
             {
-                hoveredWorkout = 2;
+                hoveredWorkout = 0;
             }
             else if (hoveredWorkout == 0)
             {
@@ -87,9 +87,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             //Waving down means incrementing the hovered category, unless it's already 2, in which case it's 1
             TextBlock textBlock1 = (TextBlock)stackPanel.Children[hoveredWorkout ];
             textBlock1.FontSize = 24;
-            if(hoveredWorkout == 2)
+            if(hoveredWorkout == 1)
             {
-                hoveredWorkout = 1;
+                hoveredWorkout = 0;
             }
             else if (hoveredWorkout == 0)
             {
