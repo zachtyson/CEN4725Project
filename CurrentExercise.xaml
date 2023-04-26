@@ -6,6 +6,6 @@
       xmlns:local="clr-namespace:Microsoft.Samples.Kinect.BodyBasics"
       mc:Ignorable="d"
       Title="CurrentExercise" Height="870" Width="500">
-    <Grid>
+    <Grid Margin="0,0,0,0.4">
     </Grid>
 </Page>

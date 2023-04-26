@@ -49,7 +49,35 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             tb2.FontSize = 24;
             tb2.Margin = new Thickness(0, 0, 0, -100);
             stackPanel.Children.Add(tb2);
-            
+            TextBlock tb3 = new TextBlock();
+            tb3.Inlines.Add("EVALUATION BAR");
+            tb3.HorizontalAlignment = HorizontalAlignment.Right;
+            tb3.VerticalAlignment = VerticalAlignment.Top;
+            tb3.FontSize = 24;
+            tb3.Margin = new Thickness(0,-735,-470,0);
+            stackPanel.Children.Add(tb3);
+            TextBlock tb4 = new TextBlock();
+            tb4.Inlines.Add("100");
+            tb4.HorizontalAlignment = HorizontalAlignment.Right;
+            tb4.VerticalAlignment = VerticalAlignment.Top;
+            tb4.FontSize = 24;
+            tb4.Margin = new Thickness(0, -740, -350, 0);
+            stackPanel.Children.Add(tb4);
+            TextBlock tb5 = new TextBlock();
+            tb5.Inlines.Add("50");
+            tb5.HorizontalAlignment = HorizontalAlignment.Right;
+            tb5.VerticalAlignment = VerticalAlignment.Top;
+            tb5.FontSize = 24;
+            tb5.Margin = new Thickness(0, -370,-350, 0);
+            stackPanel.Children.Add(tb5);
+            TextBlock tb6 = new TextBlock();
+            tb6.Inlines.Add("0");
+            tb6.HorizontalAlignment = HorizontalAlignment.Right;
+            tb6.VerticalAlignment = VerticalAlignment.Bottom;
+            tb6.FontSize = 24;
+            tb6.Margin = new Thickness(0, 0, -350, 0);
+            stackPanel.Children.Add(tb6);
+
             this.Content = stackPanel;
             this.exercise = exercise;
         }

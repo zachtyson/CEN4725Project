@@ -292,7 +292,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(this.kinectSensor, 0);
             if (this.vgbFrameSource != null)
             {
-                string databasePath = @"C:\Users\William\Documents\Kinect Studio\Repository\wave.gbd";
+                string databasePath = @"C:\College\Spring 2023\CEN4725\CEN4725Project\wave.gbd";
                 VisualGestureBuilderDatabase database = new VisualGestureBuilderDatabase(databasePath);
                 if (database != null)
                 {
