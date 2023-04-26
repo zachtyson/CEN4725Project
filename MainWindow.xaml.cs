@@ -276,8 +276,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         Gesture _curl;
         Gesture _wave_up;
         Gesture _wave_down;
-        
-        
+
+        private long lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
 
         /// <summary>
         /// Execute start up tasks
