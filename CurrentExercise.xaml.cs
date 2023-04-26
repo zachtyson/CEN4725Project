@@ -24,6 +24,24 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         {
             //<TextBlock Text = "LOWER BODY WORKOUTS" HorizontalAlignment="Center" VerticalAlignment="TOP" FontSize="24"> </TextBlock>
             InitializeComponent();
+            // counter label textBlock
+            TextBlock tb3 = new TextBlock();
+            tb3.Inlines.Add("COUNT");
+            tb3.HorizontalAlignment = HorizontalAlignment.Left;
+            tb3.VerticalAlignment = VerticalAlignment.Center;
+            tb3.FontSize = 24;
+            tb3.Margin = new Thickness(-1000, 75, 0, 0);
+
+            // count textBlock
+
+            TextBlock tb4 = new TextBlock();
+            tb4.Text += 0;
+            tb4.Inlines.Add(tb4.Text);
+            tb4.HorizontalAlignment = HorizontalAlignment.Left;
+            tb4.VerticalAlignment = VerticalAlignment.Center;
+            tb4.FontSize = 24;
+            tb4.Margin = new Thickness(-100, 100, 0, 0);
+
             Grid g = (Grid)FindName("Ugh");
             TextBlock tb = new TextBlock();
             tb.Inlines.Add(exercise);
@@ -31,6 +49,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             tb.VerticalAlignment = VerticalAlignment.Top;
             tb.FontSize = 24;
             stackPanel = new StackPanel();
+          
             stackPanel.Children.Add(tb);
             ProgressBar pb = new ProgressBar();
             pb.Orientation = Orientation.Vertical;
@@ -49,7 +68,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             tb2.FontSize = 24;
             tb2.Margin = new Thickness(0, 0, 0, -100);
             stackPanel.Children.Add(tb2);
-            
+            //stackPanel.Children.Add(tb3);
+            //stackPanel.Children.Add(tb4);
+
             this.Content = stackPanel;
             this.exercise = exercise;
         }

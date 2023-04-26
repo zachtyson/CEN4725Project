@@ -22,11 +22,8 @@
         </Grid.ColumnDefinitions>
         
         <Viewbox Grid.Column="2" HorizontalAlignment="Center" Stretch="None" VerticalAlignment="Center" Panel.ZIndex="2">
-            <Border BorderThickness="10"
-                    BorderBrush="#FF000000"
-                    VerticalAlignment="Top">
+            
             <Image Height="800" Width="800" Source="{Binding ImageSource}"  />
-            </Border>
         </Viewbox>
         <Frame Grid.Column="2" x:Name="Main" VerticalAlignment="Center" Source="MainMenu.xaml" NavigationUIVisibility="Hidden" Panel.ZIndex="1"/>
     </Grid>
