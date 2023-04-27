@@ -5,9 +5,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
     public partial class ConfirmPage : Page
     {
         int hoveredWorkout = 1;
-        
+
         private StackPanel stackPanel;
-        
+
         //There's currently 3 categories, Curls, Pushups, and Exit, respectively
         public ConfirmPage()
         {
@@ -37,24 +37,24 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             textBlocks[1].FontSize = 24;
             textBlocks[1].TextAlignment = System.Windows.TextAlignment.Left;
             textBlocks[2] = new TextBlock();
-            
+
             stackPanel = new StackPanel();
             stackPanel.Children.Add(textBlocks[0]);
             stackPanel.Children.Add(textBlocks[1]);
             stackPanel.Children.Add(textBlocks[2]);
-            
+
             TextBlock exitMessage = new TextBlock();
             exitMessage.Text = "Wave to select, Close your fist to confirm";
             exitMessage.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
             exitMessage.FontSize = 16;
             exitMessage.Margin = new System.Windows.Thickness(0, -600, 0, 0000);
             stackPanel.Children.Add(exitMessage);
-            
+
             this.Content = stackPanel;
-            
-            
+
+
         }
-        
+
         public int GetCategoryIndex()
         {
             return hoveredWorkout;
@@ -77,7 +77,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 hoveredWorkout--;
             }
-            TextBlock textBlock2 = (TextBlock)stackPanel.Children[hoveredWorkout ];
+            TextBlock textBlock2 = (TextBlock)stackPanel.Children[hoveredWorkout];
             textBlock2.FontSize = 36;
             return hoveredWorkout;
         }
@@ -85,9 +85,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         public int WaveDown()
         {
             //Waving down means incrementing the hovered category, unless it's already 2, in which case it's 1
-            TextBlock textBlock1 = (TextBlock)stackPanel.Children[hoveredWorkout ];
+            TextBlock textBlock1 = (TextBlock)stackPanel.Children[hoveredWorkout];
             textBlock1.FontSize = 24;
-            if(hoveredWorkout == 1)
+            if (hoveredWorkout == 1)
             {
                 hoveredWorkout = 0;
             }
@@ -99,7 +99,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             {
                 hoveredWorkout++;
             }
-            TextBlock textBlock2 = (TextBlock)stackPanel.Children[hoveredWorkout ];
+            TextBlock textBlock2 = (TextBlock)stackPanel.Children[hoveredWorkout];
             textBlock2.FontSize = 36;
             return hoveredWorkout;
         }

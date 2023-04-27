@@ -276,8 +276,9 @@ namespace Microsoft.Samples.Kinect.BodyBasics
         Gesture _curl;
         Gesture _wave_up;
         Gesture _wave_down;
-
+        Gesture _oGesture;
         private long lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
 
 
         /// <summary>
@@ -325,6 +326,10 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         else if (gesture.Name == "wave_down")
                         {
                             _wave_down = gesture;
+                        }
+                        else if (gesture.Name == "piro")
+                        {
+                            _oGesture = gesture;
                         }
 
                     }
@@ -448,6 +453,12 @@ namespace Microsoft.Samples.Kinect.BodyBasics
 
         private void WaveGesture()
         {
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             //Wave gesture is for 1) Initial main menu screen, 2) Exiting an exercise
             //Confirming actions for categories is a close hand gesture since we figured that wave up and wave down would be too close to a wave gesture
             if (Main.Content.GetType() == typeof(MainMenu))
@@ -455,15 +466,28 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 Main.Content = new CategoriesListPage();
                 currentGestureName = null;
             }
-            else if (Main.Content.GetType() == typeof(CurrentExercise))
+           
+        }
+        private void OGesture()
+        {
+            //Wave gesture is for 1) Initial main menu screen, 2) Exiting an exercise
+            //Confirming actions for categories is a close hand gesture since we figured that wave up and wave down would be too close to a wave gesture
+            if (Main.Content.GetType() == typeof(CurrentExercise))
             {
                 Main.Content = new CategoriesListPage();
                 currentGestureName = null;
+                lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             }
         }
-
         private void WaveUpGesture()
         {
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             if (Main.Content.GetType() == typeof(CategoriesListPage))
             {
                 CategoriesListPage c = (CategoriesListPage)Main.Content;
@@ -479,11 +503,21 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 LowerWorkoutListPage c = (LowerWorkoutListPage)Main.Content;
                 int o = c.WaveUp();
             }
-            System.Threading.Thread.Sleep(50);
+            else if (Main.Content.GetType() == typeof(ConfirmPage))
+            {
+                ConfirmPage c = (ConfirmPage)Main.Content;
+                int o = c.WaveUp();
+            }
         }
 
         private void WaveDownGesture()
         {
+            if (lastWave + gestureWaitConst > DateTimeOffset.Now.ToUnixTimeMilliseconds())
+            {
+                return;
+            }
+            lastWave = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
             if (Main.Content.GetType() == typeof(CategoriesListPage))
             {
                 CategoriesListPage c = (CategoriesListPage)Main.Content;
@@ -497,6 +531,11 @@ namespace Microsoft.Samples.Kinect.BodyBasics
             else if (Main.Content.GetType() == typeof(LowerWorkoutListPage))
             {
                 LowerWorkoutListPage c = (LowerWorkoutListPage)Main.Content;
+                int o = c.WaveDown();
+            }
+            else if (Main.Content.GetType() == typeof(ConfirmPage))
+            {
+                ConfirmPage c = (ConfirmPage)Main.Content;
                 int o = c.WaveDown();
             }
         }
@@ -585,7 +624,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                 {
                     //2 = exit program
                     Application.Current.Shutdown();
-                  
+
                 }
             }
             //Do nothing for if they're mid exercise, since it may be too easy to accidentally exit
@@ -738,7 +777,7 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                         {
                             CurrentExercise c = (CurrentExercise)Main.Content;
                             DiscreteGestureResult result = frame.DiscreteGestureResults[_curl];
-                            var waveResult = frame.DiscreteGestureResults[_wave];
+                            var oResult = frame.DiscreteGestureResults[_oGesture];
                             if (c.exercise == "PUSHUPS")
                             {
                                 result = frame.DiscreteGestureResults[_push_up];
@@ -752,14 +791,14 @@ namespace Microsoft.Samples.Kinect.BodyBasics
                                 result = frame.DiscreteGestureResults[_squats];
                             }
 
-                            if (result != null && result.Confidence > 0.15)
+                            if (result != null && result.Confidence > 0.7)
                             {
                                 c.ChangeBar(result.Confidence * 100);
                             }
 
-                            if (waveResult.Confidence > 0.7)
+                            if (oResult.Confidence > 0.1)
                             {
-                                WaveGesture();
+                                OGesture();
                             }
 
                             if (this.bodies != null)
